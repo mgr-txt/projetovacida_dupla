@@ -1,4 +1,4 @@
-# 💉 Projeto 12 — Sistema de Gerenciamento de Vacinação Fictícia
+# 💉 Projeto  — Sistema de Gerenciamento de Vacinação Fictícia
 
 Aplicação de terminal (CLI) desenvolvida em **Python** para organizar, controlar e analisar dados de campanhas de vacinação fictícia. O sistema opera em memória durante a execução, permitindo realizar múltiplas operações de cadastro, movimentação de estoque e geração de indicadores em um menu interativo contínuo.
 
