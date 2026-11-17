@@ -28,25 +28,25 @@ lotes = [
         "id": 1,
         "vacina": "COVID-19 (Pfizer)",
         "quantidade_disponivel": 400,
-        "validade": "2026-12-30",
+        "validade": "30-04-2027",
     },
     {
         "id": 2,
         "vacina": "Influenza (Gripe)",
         "quantidade_disponivel": 250,
-        "validade": "2026-11-25",
+        "validade": "25-11-2026",
     },
     {
         "id": 3,
         "vacina": "Tríplice Viral",
         "quantidade_disponivel": 35,
-        "validade": "2026-10-15",
+        "validade": "15-10-2026",
     },  # Estoque crítico (<= 50)
     {
         "id": 4,
         "vacina": "Febre Amarela",
         "quantidade_disponivel": 0,
-        "validade": "2026-09-10",
+        "validade": "10-09-2026",
     },  # Estoque zerado (Caso-Limite)
 ]
 aplicacoes = []
@@ -67,6 +67,7 @@ def cadastrar_unidade():
 
     print("Unidade cadastrada com sucesso!")
 
+
 # FUNÇÕES AUXILIARES
 def pedir_inteiro(mensagem):
     while True:
@@ -76,17 +77,22 @@ def pedir_inteiro(mensagem):
         except ValueError:
             print("Digite apenas números inteiros!")
 
+
 def encontrar_id(lista, id_alvo):
     for item in lista:
         if item["id"] == id_alvo:
             return item
-    return None  
+    return None
 
- # BUSCAR POR ID   
-   
+
+# BUSCAR POR ID
+
+
 def buscar_id():
     while True:
-        consulta = pedir_inteiro("Selecione onde deseja consultar:\n1 - Unidade\n2 - Lote\nEscolha uma opção: ")
+        consulta = pedir_inteiro(
+            "Selecione onde deseja consultar:\n1 - Unidade\n2 - Lote\nEscolha uma opção: "
+        )
         if consulta == 1 or consulta == 2:
             break
         print("Opção inválida! Tente novamente...")
@@ -102,6 +108,48 @@ def buscar_id():
         print("\n--- REGISTRO ENCONTRADO ---")
         for key, value in registro.items():
             print(f"{key}: {value}")
+
+
+# EDITAR REGISTRO
+
+
+def editar_registro():
+    while True:
+        consulta = pedir_inteiro(
+            "Selecione onde deseja consultar:\n1 - Unidade\n2 - Lote\nEscolha uma opção: "
+        )
+        if consulta == 1 or consulta == 2:
+            break
+        print("Opção inválida! Tente novamente...")
+    if consulta == 1:
+        lista_escolhida = unidades
+    else:
+        lista_escolhida = lotes
+    id_editar = pedir_inteiro("Digite o ID onde deseja editar: ")
+    registro = encontrar_id(lista_escolhida, id_editar)
+    if registro is None:
+        print("ID não encontrado!")
+    elif consulta == 1:
+        registro["nome"] = input("Digite o novo NOME: ").strip()
+        while True:
+            novo_pub = pedir_inteiro("Digite a nova quantidade de PUBLICO-ALVO: ")
+            if novo_pub >= 0:
+                registro["publico_alvo"] = novo_pub
+                break
+            else:
+                print("ERRO: Quantidade não pode ser negativa!\nTente novamente...")
+        print("\nUnidade alterada com sucesso!")
+    else:
+        registro["vacina"] = input("Digite o novo nome da Vacina: ").strip()
+        while True:
+            nova_qtd = pedir_inteiro("Digite a nova QUANTIDADE DISPONIVEL: ")
+            if nova_qtd >= 0:
+                registro["quantidade_disponivel"] = nova_qtd
+                break
+            else:
+                print("ERRO: Quantidade não pode ser negativa!\nTente novamente...")
+        registro["validade"] = input("Nova validade (DD-MM-AAAA): ").strip()
+        print("\nLote alterado com sucesso!")
 
 # ==========================================
 # LISTAR UNIDADES
@@ -266,6 +314,7 @@ while True:
     print("6 - Relatorio geral")
     print("7 - Relatorio por unidade")
     print("8 - Buscar por ID")
+    print("9 - Editar Registro")
     print("0 - Sair")
 
     opcao = input("\nEscolha uma opcao: ")
@@ -293,6 +342,9 @@ while True:
 
     elif opcao == "8":
         buscar_id()
+
+    elif opcao == "9":
+        editar_registro()
 
     elif opcao == "0":
         print("Sistema encerrado.")
