@@ -76,4 +76,4 @@ O menu principal utiliza um dicionário de despacho (`acoes`) para mapear cada o
 ## 👨‍💻 Autores
 
 * **Miguel** (`@mgr-txt`)
-* **Parceiro de Dupla** *(adicionar nome/GitHub)*
+* **Josué Araujo**
